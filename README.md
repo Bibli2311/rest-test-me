@@ -17,13 +17,13 @@ Then load the script using `sqlcmd`
 docker exec -it os-compose1 /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "lololol7261()()" -C -i file1.sql
 ```
 
--it : run command interactively
--S : server
-U : user
-sa : Service account (root user of database)
--P : password (password is in parenthesis since the password has parenthesis)
--C : trust self-signed certificate
--i : input sql file
+-it : run command interactively <br>
+-S : server  <br>
+U : user <br>
+sa : Service account (root user of database) <br>
+-P : password (password is in parenthesis since the password has parenthesis) <br>
+-C : trust self-signed certificate <br>
+-i : input sql file <br>
 
 By passing -i then we can load the `file1.sql` file into the datbase with `sqlcmd`
 
