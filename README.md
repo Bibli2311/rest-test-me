@@ -37,3 +37,48 @@ datasource:
 
 `host.docker.internal` is a special DNS name that resolves to an internal IP address for you docker.
 
+
+## fill out the db with data
+
+all relevant sql files are located in the `sql/` folder.
+
+First start the docker container from the `Dockerfile`
+```shell
+docker build -t os/mssql-git .
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=lololol7261()()" -p 1433:1433 -d os/mssql-git
+```
+
+__check the docker name__ <br>
+```shell
+docker ps -a | grep git | awk -F " " '{print $NF}'
+```
+
+__copy all sql files into the container__ <br>
+
+first create a folder for the scripts:
+```shell
+docker exec -u 0 -it <docker-name> /bin/sh
+mkdir sql-scripts
+```
+
+Then copy all the sql files into the container:
+
+```
+
+```shell
+cd sql/
+ls | xargs -I % sh -c "docker cp % <docker-name>:/sql-scripts"
+```
+
+__copy over the bash script__ <br>
+```shell
+docker cp loop-through-scripts.sh <docker-name>:/
+```
+Then run the sql files in the container:
+
+```shell
+docker exec -u 0 -it zealous_chatelet /bin/sh
+./loop-through-scripts.sh
+```
+
+

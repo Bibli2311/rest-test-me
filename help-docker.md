@@ -51,3 +51,19 @@ telnet host.docker.internal 1433
 ```
 
 source: https://dev.to/natterstefan/docker-tip-how-to-get-host-s-ip-address-inside-a-docker-container-5anh
+
+
+## copy all sql files into a docker container:
+
+quick and dirty method:
+
+```shell
+cd sql/
+ls | xargs -I % sh -c "docker cp % os-compose1:/sql-scripts"
+```
+
+sort files among docker files:
+ls | sort -V
+
+log in as root:
+docker exec -u 0 -it zealous_chatelet /bin/sh
