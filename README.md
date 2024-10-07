@@ -1,20 +1,9 @@
 # example using mssql docker image in a spring project:
 
-1. Build the docker image:
-```shell
-docker compose up -d
-```
+__explaining sqlcmd command__ <br>
 
-Then copy a .sql file inside the container:
-```shell
-docker cp file1.sql os-compose1:/
-# the docker container name can vary
-```
-
-Then load the script using `sqlcmd`
-
-```shell
-docker exec -it os-compose1 /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "lololol7261()()" -C -i file1.sql
+```bash
+/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "lololol7261()()" -C -i file1.sql
 ```
 
 -it : run command interactively <br>
@@ -27,7 +16,7 @@ sa : Service account (root user of database) <br>
 
 By passing -i then we can load the `file1.sql` file into the datbase with `sqlcmd`
 
-2. Configure Spring to use the docker container
+__Configure Spring to use the docker container__ <br>
 
 This has been set to this:
 ```yml
@@ -41,6 +30,7 @@ datasource:
 ## fill out the db with data
 
 all relevant sql files are located in the `sql/` folder.
+This must be done by yourself (locate the sql migration files from the backend project)
 
 First start the docker container from the `Dockerfile`
 ```shell
@@ -61,14 +51,18 @@ docker exec -u 0 -it <docker-name> /bin/sh
 mkdir sql-scripts
 ```
 
-Then copy all the sql files into the container:
+`docker exec -u 0` command runs a command as root in the docker container.
+This is needed bacause folders are owned by the root user.
+Therefore, we need to be root to create the folder
 
-```
+Then copy all the sql files into the container:
 
 ```shell
 cd sql/
 ls | xargs -I % sh -c "docker cp % <docker-name>:/sql-scripts"
 ```
+
+This will run `docker cp <file> <docker-name>:/sql-scripts` for every file inside the `./sql` folder
 
 __copy over the bash script__ <br>
 ```shell
@@ -77,7 +71,7 @@ docker cp loop-through-scripts.sh <docker-name>:/
 Then run the sql files in the container:
 
 ```shell
-docker exec -u 0 -it zealous_chatelet /bin/sh
+docker exec -u 0 -it <docker-name> /bin/sh
 ./loop-through-scripts.sh
 ```
 
