@@ -3,10 +3,9 @@
 __explaining sqlcmd command__ <br>
 
 ```bash
-/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "lololol7261()()" -C -i file1.sql
+/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "lololol7261()()" -C -i <file>.sql
 ```
 
--it : run command interactively <br>
 -S : server  <br>
 U : user <br>
 sa : Service account (root user of database) <br>
@@ -14,7 +13,7 @@ sa : Service account (root user of database) <br>
 -C : trust self-signed certificate <br>
 -i : input sql file <br>
 
-By passing -i then we can load the `file1.sql` file into the datbase with `sqlcmd`
+By passing -i then we can load the `<file>` file into the datbase with `sqlcmd`
 
 __Configure Spring to use the docker container__ <br>
 
@@ -26,9 +25,7 @@ datasource:
 
 `master` database is used here since it looks like it is the default database.
 
-
 `host.docker.internal` is a special DNS name that resolves to an internal IP address for you docker.
-
 
 ## fill out the db with data
 
