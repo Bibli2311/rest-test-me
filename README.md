@@ -21,8 +21,11 @@ __Configure Spring to use the docker container__ <br>
 This has been set to this:
 ```yml
 datasource:
-   url: jdbc:sqlserver://host.docker.internal:1433;databaseName=oscar;trustServerCertificate=true;
+   url: jdbc:sqlserver://host.docker.internal:1433;databaseName=master;trustServerCertificate=true;
 ```
+
+`master` database is used here since it looks like it is the default database.
+
 
 `host.docker.internal` is a special DNS name that resolves to an internal IP address for you docker.
 
